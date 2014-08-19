@@ -1,0 +1,124 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Stateful Array Grid Example</title>
+
+    <script type="text/javascript" src="ext-all.js"></script>
+    <script type="text/javascript" src="include-theme.js"></script>
+
+    
+    <script type="text/javascript" src="examples.js"></script>
+    <script type="text/javascript" src="states.js"></script>
+
+	    <script type="text/javascript" src="layout.js"></script>
+
+    
+    <link rel="stylesheet" type="text/css" href="menus.css" />
+    <link rel="stylesheet" type="text/css" href="ext-all-gray.css">
+
+    <!-- page specific -->
+    <style type="text/css">
+        /* style rows on mouseover */
+        .x-grid-row-over .x-grid-cell-inner {
+            font-weight: bold;
+        }
+        /* shared styles for the ActionColumn icons */
+        .x-action-col-cell img {
+            height: 16px;
+            width: 16px;
+            cursor: pointer;
+        }
+        /* custom icon for the "buy" ActionColumn icon */
+        .x-action-col-cell img.buy-col {
+            background-image: url(../shared/icons/fam/accept.gif);
+        }
+        /* custom icon for the "alert" ActionColumn icon */
+        .x-action-col-cell img.alert-col {
+            background-image: url(../shared/icons/fam/error.gif);
+        }
+    </style>
+  
+	<script>
+	lc_Data={"HGETALL":{"SPM4F":"0","RBU4F":"2.6725","AUDEUR":"0.648439541297721","EURCCK":"27.347"}};
+
+	Ext.require([ 
+    'Ext.grid.*',
+    'Ext.data.*',
+    'Ext.util.*',
+    'Ext.state.*'
+]);
+
+Ext.onReady(function() {
+    Ext.QuickTips.init();
+    myData=[];dctr=0;
+	for (qq in lc_Data.HGETALL) {console.log(qq);dctr++;
+	crt=[];crt[0]=qq;crt[1]=lc_Data.HGETALL[qq];crt[2]=12;crt[3]=12;crt[4]='';myData.push(crt);
+	}
+	console.log(myData);
+	
+    // setup the state provider, all state information will be saved to a cookie
+    Ext.state.Manager.setProvider(Ext.create('Ext.state.CookieProvider'));
+
+
+    // create the data store
+    var store = Ext.create('Ext.data.ArrayStore', {
+        fields: [
+           {name: 'company'},
+           {name: 'price',      type: 'float'},
+
+        ],
+        data: myData
+    });
+
+    // create the Grid
+    var grid = Ext.create('Ext.grid.Panel', {
+        store: store,
+        stateful: true,
+        stateId: 'stateGrid',
+        columns: [
+            {
+                text     : 'Symbol',
+                flex     : 1,
+                sortable : true,
+                dataIndex: 'company'
+            },
+            {
+                text     : 'Price',
+                width    : 75,
+                sortable : true,
+                //renderer : 'usMoney',
+                dataIndex: 'price'
+            }
+
+        ],
+		autoHeight: true,
+        //height: 350,
+        //width: 100%,
+        title: 'Currently available symbols',
+        //renderTo: "grid-example",
+        viewConfig: {
+            stripeRows: true,
+			forceFit: true
+        }
+    });
+    
+    new Ext.Viewport({
+    layout: 'fit',
+    items:[grid]
+}).show();
+    
+    
+});
+
+	
+	</script>
+	
+	
+</head>
+<body style="padding:0px;margin:0px;">
+
+</body>
+</html>
+
+

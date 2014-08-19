@@ -1,0 +1,51 @@
+<h2>
+<a name="rest-api" class="anchor" href="#rest-api"><span class="octicon octicon-link"></span></a>REST API</h2>
+
+<p>Note that POST endpoints accept only <code>application/json</code> requests,
+and will reject regular form posts.</p>
+
+<h3>
+<a name="get-_page" class="anchor" href="#get-_page"><span class="octicon octicon-link"></span></a>GET /_/page</h3>
+
+<p>Fetch the page as a serialization in SocialCalc save format.</p>
+
+<h3>
+<a name="put-_page" class="anchor" href="#put-_page"><span class="octicon octicon-link"></span></a>PUT /_/page</h3>
+
+<p>Replaces the page with a serialization in SocialCalc save format.</p>
+
+<h3>
+<a name="post-_" class="anchor" href="#post-_"><span class="octicon octicon-link"></span></a>POST /_</h3>
+
+<p>Takes a JSON structure with <code>room</code> and <code>snapshot</code> fields.</p>
+
+<p>Replaces the page with a serialization in Socialtext save format.</p>
+
+<h3>
+<a name="post-_page" class="anchor" href="#post-_page"><span class="octicon octicon-link"></span></a>POST /_/page</h3>
+
+<p>Takes a JSON structure with a <code>command</code> field (either as a string
+or an array of strings).</p>
+
+<p>Runs one or more commands specified in the <code>command</code> field.</p>
+
+<h3>
+<a name="get-_pagecells" class="anchor" href="#get-_pagecells"><span class="octicon octicon-link"></span></a>GET /_/page/cells</h3>
+
+<p>Returns a JSON representation of all defined cells in the page.</p>
+
+<h3>
+<a name="get-_pagecellsa1" class="anchor" href="#get-_pagecellsa1"><span class="octicon octicon-link"></span></a>GET /_/page/cells/A1</h3>
+
+<p>Returns a JSON representation of a single cell in the page.</p>
+
+<h3>
+<a name="get-_pagehtml" class="anchor" href="#get-_pagehtml"><span class="octicon octicon-link"></span></a>GET /_/page/html</h3>
+
+<p>Returns a HTML rendering of the page. (GET /page.html also works.)</p>
+
+<h3>
+<a name="get-_pagecsv" class="anchor" href="#get-_pagecsv"><span class="octicon octicon-link"></span></a>GET /_/page/csv</h3>
+
+<p>Returns a CSV rendering of the page. (GET /page.csv also works.)</p>
+

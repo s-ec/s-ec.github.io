@@ -1,0 +1,56 @@
+<style type="text/css">#js-editor{position:absolute;top:0;right:0;bottom:0;left:0}</style><div id="js-editor"></div>
+<script src="/static/support/exteditor/ace-noconf.js" type="text/javascript" charset="utf-8">
+
+</script><script>
+if (top.refwin) sheetwin = top.refwin;
+else sheetwin = top;
+jsEditor = ace.edit("js-editor");
+//jsEditor.setTheme("ace/theme/monokai");
+var cobj = {
+    Scratchpad: 0,
+    onRefresh: 1,
+    onOpen: 2
+};
+//console.log(location.href);
+mytarg = location.href.split("?")[1].replace("=1", "");
+jsEditor.getSession().setMode("ace/mode/javascript");
+if (sheetwin.diseditor === undefined) sheetwin.diseditor = {};
+sheetwin.diseditor[mytarg] = jsEditor;
+//console.log(mytarg);
+jsEditor.getSession().setValue(sheetwin.s_obj[mytarg]);
+jsEditor.setOptions({  fontSize: "18pt" });
+jsEditor.on("blur", function() {
+    console.log("blurred NAO");
+    console.log(jsEditor.getSession().getValue());
+    sheetwin.s_obj[mytarg] = jsEditor.getSession().getValue();
+    if (sheetwin.sce_win) { // backward compat with legacy editor
+        sheetwin.sce_win.items.items[2].items.items[cobj[mytarg]].rawValue = jsEditor.getSession().getValue();
+        sheetwin.sce_win.items.items[2].items.items[cobj[mytarg]].value = jsEditor.getSession().getValue();
+    }
+
+});
+
+/*
+                    sce_win.items.items[2].items.items[0].rawValue = (s_obj.Scratchpad);
+                    sce_win.items.items[2].items.items[1].rawValue = (s_obj.onRefresh);
+                    sce_win.items.items[2].items.items[2].rawValue = (s_obj.onOpen);
+                    sce_win.items.items[2].items.items[0].value = (s_obj.Scratchpad);
+                    sce_win.items.items[2].items.items[1].value = (s_obj.onRefresh);
+                    sce_win.items.items[2].items.items[2].value = (s_obj.onOpen);
+                    
+                saveobj = {
+                    Scratchpad: (sce_win.items.items[2].items.items[0].rawValue),
+                    onRefresh: (sce_win.items.items[2].items.items[1].rawValue),
+                    onOpen: (sce_win.items.items[2].items.items[2].rawValue)
+                };
+                
+                top["script1-inputEl"].value
+                    
+                    
+                    
+                    
+                    
+                    
+                    */
+    
+</script>

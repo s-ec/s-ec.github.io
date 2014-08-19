@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Candlesticks test</title>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="highstock.js"></script>
+<script src="exporting.js"></script>
+
+	<script>
+
+
+
+    
+    var winarr  = (window.opener != null) ? window.opener.extwindows : top.extwindows; //not really a csv
+    thiswinidx=-1;
+    for (ea in winarr) {if (winarr[ea]["wref"]==this.window) {datarr=winarr[ea]["datarr"];title=winarr[ea]["title"];thiswinidx=ea;} } // could use .filter if you were feeling stylish
+    
+    // TODO: autorecognize filed types. load csv..
+    
+    console.log(datarr);
+    
+    isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+    
+
+    myData=datarr;dctr=0;
+
+	//console.log(myData);
+	
+    // setup the state provider, all state information will be saved to a cookie
+	</script>
+	
+	
+</head>
+<body style="padding:0px;margin:0px;">
+<div id="container" style="height: 500px; min-width: 500px"></div>
+
+<script>
+    
+      
+    
+chart1 = new Highcharts.StockChart({
+         chart: {
+            renderTo: 'container'
+         },
+         
+          navigator : {
+                enabled : false
+            },
+         
+         rangeSelector: {
+            selected: 1
+         },
+         series: [{
+            name: title,
+            type:"candlestick", // it's a line otherwise   
+            data: myData
+         }]
+      });
+
+     
+</script>    
+    
+    
+    
+</body>
+</html>
+
+

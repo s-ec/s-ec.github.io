@@ -1,0 +1,81 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>%LIVECALC TEST</title>
+    <script type="text/javascript" src="/support/ext-all.js"></script>
+    <script type="text/javascript" src="/support/include-theme.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/support/example.css" />
+    <script type="text/javascript" src="/support/examples.js"></script>
+    <script type="text/javascript" src="/support/states.js"></script>
+
+	    <script type="text/javascript" src="/support/layout.js"></script>
+    <script type="text/javascript" src="menus.js"></script>
+    <link rel="stylesheet" type="text/css" href="menus.css" />
+    <link rel="stylesheet" type="text/css" href="/support/ext-all-gray.css" />
+   <script>
+
+        var SocialCalc = { _room: "test" };
+ 
+ var reload = function() {
+  //alert("daje");
+  if (global_recalc_on || true) {spreadsheet.ExecuteCommand('recalc', '');}	
+}
+setInterval(reload, 5000);
+
+		
+
+ 
+</script>
+
+    <script src="/support/ethercalc.js"></script>
+    <script src="/support/socket.io.js"></script>
+    <script src="/support/zappa.js"></script>
+    <script src="/support/broadcast.js"></script>
+    <script src="/support/graph.js"></script>
+    <script src="/support/main.js"></script>
+    
+
+
+
+
+<link rel="stylesheet" type="text/css" href="/support/socialcalc.css">
+<link rel="stylesheet" type="text/css" href="/support/index.css">
+
+ <style type="text/css">
+        .x-panel-body p {
+            margin: 10px;
+            font-size: 12px;
+        }
+    </style>
+
+<style>
+body
+ {font-family:verdana,helvetica,sans-serif;font-size:small;padding:0px;margin:0px;}
+.testclass {border:2px dotted red;}
+.testclass2 {background-image:url(/images/sc-logo.gif);}
+.smaller {font-size:smaller;}
+.hide {display:none;}
+</style>
+
+</head>
+<body  onresize="if (typeof doresize != 'undefined') doresize();">
+
+<div style="position:absolute;z-index:100;zIndex:100;left:700px;top:100px">
+<input type="button" name="go" value="go" onclick="spreadsheet.ExecuteCommand('recalc', '');for (e in spreadsheet){console.log(e+' ');}" />
+<input type="button" id="show-btn" value="open Window"/><br/><br/>
+
+</div>
+ <div id="toolbar"></div>
+       
+        
+        
+        
+        <div id="tableeditor" style="margin:0px;padding:0px;">&nbsp;</div>
+        
+        
+
+    <br /><br /><br /><br /><br />
+</body>
+</html>

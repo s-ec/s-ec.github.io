@@ -1,0 +1,38 @@
+<html>
+	<head>
+		<link rel="stylesheet" href="http://cdn.sencha.io/try/extjs/4.1.0/resources/css/ext-all.css"/>
+		<link rel="stylesheet" href="css/histogram.css"/>
+
+		<script type="text/javascript" src="http://cdn.sencha.io/try/extjs/4.1.0/ext-all.js"></script>
+		<script type="text/javascript" src="js/raphael-min.js"></script>
+		<script type="text/javascript" src="js/Stat.js"></script>
+		<script type="text/javascript" src="js/Histogram.js"></script>
+		<script type="text/javascript" src="js/Scroller.js"></script>
+
+		<script type="text/javascript">
+			Ext.onReady(function() {
+				var body = Ext.getBody();
+				var histogram = Ext.create('Ext.ux.Histogram', {
+					width : body.getWidth(),
+					height : body.getHeight(),
+					renderTo : body
+				});
+				histogram.show();
+				// scroller = Ext.create('ALM.view.component.TextCarousel', {
+				// 	renderTo : body
+				// });
+				// scroller.show();
+				// scroller.setData([{
+				// 	text : 'First Line'
+				// }, {
+				// 	text : 'Second Line'
+				// }, {
+				// 	text : 'Last Line'
+				// }])
+			})
+		</script>
+	</head>
+	<body>
+		
+	</body>
+</html>

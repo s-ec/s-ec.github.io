@@ -1,0 +1,32 @@
+{
+	"charts" :
+	[
+		"http://raw.at.recal.cc/charts/treemap.js",
+		"http://raw.at.recal.cc/charts/bubblechart.js",
+		"http://raw.at.recal.cc/charts/alluvial.js",
+		"http://raw.at.recal.cc/charts/circlepacking.js",
+		"http://raw.at.recal.cc/charts/circulardendrogram.js",
+		"http://raw.at.recal.cc/charts/dendrogram.js",
+		"http://raw.at.recal.cc/charts/binning.js"
+	],
+
+	"samples" :
+	[
+		{
+			"url" : "samples/dispersion.csv",
+			"title" : "movies (Dispersions)"
+		},
+		{
+			"url" : "samples/correlations.csv",
+			"title" : "cocktails (Correlations)"
+		},
+		{
+			"url" : "samples/categorical.csv",
+			"title" : "titanic (multi variate)"
+		},
+		{
+			"url" : "samples/flow.csv",
+			"title" : "music industry (Flows)"
+		}
+	]
+}

@@ -1,0 +1,48 @@
+<html>
+<head>
+<script type="text/javascript"
+  src="dygraph-combined.js"></script>
+  
+      <style type="text/css">
+    #div_g {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 40px;
+      bottom: 10px;
+    }
+    </style>
+
+  
+</head>
+<body bgcolor="white">
+<div style="width:100%;height:50%">
+<!--- <div id="div_g"></div> --->
+<div id="whtv"  style="width:100%;height:50%"> </div>
+</div>
+<script type="text/javascript">
+var data  = (window.opener != null) ? window.opener._DYGR_CSV : top._DYGR_CSV; //not really a csv
+
+  g3 = new Dygraph(
+    document.getElementById("whtv"),
+    data,
+    {
+      rollPeriod: 7,
+      strokeWidth:2,
+      showRoller: false,
+                  axes: {
+              y: {
+                // set axis-related properties here
+                drawGrid: true,
+              },
+              x: {
+                labelsKMB: false,
+                drawGrid: false,
+              }
+            }
+    }
+  );
+
+</script>
+</body>
+</html>

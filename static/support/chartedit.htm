@@ -1,0 +1,114 @@
+<!--
+You are free to copy and use this sample in accordance with the terms of the
+Apache license (http://www.apache.org/licenses/LICENSE-2.0.html)
+--> 
+ 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+  <head> 
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/> 
+    <title> 
+      Google Visualization API Sample
+    </title>
+    <style>
+html{  height: 100%;}
+body {  min-height: 100%;}
+.full {  min-height: 100%;}
+</style>
+
+<script>
+  function getImgData(chartContainer) {
+    var chartArea = chartContainer.getElementsByTagName('svg')[0].parentNode;
+    var svg = chartArea.innerHTML;
+    var doc = chartContainer.ownerDocument;
+    var canvas = doc.createElement('canvas');
+    canvas.setAttribute('width', chartArea.offsetWidth);
+    canvas.setAttribute('height', chartArea.offsetHeight);
+
+    canvas.setAttribute(
+        'style',
+        'position: absolute; ' +
+        'top: ' + (-chartArea.offsetHeight * 2) + 'px;' +
+        'left: ' + (-chartArea.offsetWidth * 2) + 'px;');
+    doc.body.appendChild(canvas);
+    canvg(canvas, svg);
+    var imgData = canvas.toDataURL("image/png");
+    canvas.parentNode.removeChild(canvas);
+    return imgData;
+  }
+
+  function saveAsImg(chartContainer) {
+    var imgData = getImgData(chartContainer);
+
+    // Replacing the mime-type will force the browser to trigger a download
+    // rather than displaying the image in the browser window.
+    window.location = imgData.replace("image/png", "image/octet-stream");
+  }
+
+  function toImg(chartContainer, imgContainer) { 
+    var doc = chartContainer.ownerDocument;
+    var img = doc.createElement('img');
+    img.src = getImgData(chartContainer);
+
+    while (imgContainer.firstChild) {
+      imgContainer.removeChild(imgContainer.firstChild);
+    }
+    imgContainer.appendChild(img);
+  }
+</script>
+<script type="text/javascript" src="/static/support/rgbcolor.js"></script> 
+<script type="text/javascript" src="/static/support/canvg.js"></script>
+    <script type="text/javascript" src="//www.google.com/jsapi"></script> 
+    <script type="text/javascript"> 
+      google.load('visualization', '1', {packages: ['charteditor']});
+    </script> 
+    <script type="text/javascript"> 
+    var wrapper;
+    
+    function init() {
+      
+      /* leaving this here for future reference, want to provide same output/parameter format as gs in the api
+      wrapper = new google.visualization.ChartWrapper({
+        dataSourceUrl: 'https://spreadsheets.google.com/spreadsheet/tq?key=tnxuU73jT7eIL-aZke85e3A&pub=1&range=A1:E13',
+        containerId: 'visualization',
+        chartType: 'LineChart'
+      }); */
+      
+        wrapper = new google.visualization.ChartWrapper({
+    chartType: 'LineChart',
+    dataTable: window.opener._GVIS_ARR,
+    containerId: 'visualization'
+  });
+      
+      
+      wrapper.draw();
+    }
+    
+    function openEditor() {
+      // Handler for the "Open Editor" button.
+      var editor = new google.visualization.ChartEditor();
+      google.visualization.events.addListener(editor, 'ok',
+        function() {
+          wrapper = editor.getChartWrapper();
+          wrapper.draw(document.getElementById('visualization'));
+      });
+      editor.openDialog(wrapper,{dataSourceInput:"urlbox"});
+    }
+    
+    
+    google.setOnLoadCallback(init);
+    
+    </script> 
+  </head> 
+  <body style="font-family: Arial;border: 0 none;" onload="document.getElementById('visualization').style.height=document.getElementsByTagName('body')[0].style.height;openEditor()"> 
+    <input type='button' onclick='openEditor()' value='Open Editor'> 
+    <button onclick="saveAsImg(document.getElementById('visualization'));">Save as PNG Image</button>
+    <button onclick="toImg(document.getElementById('visualization'), document.getElementById('img_div'));">Convert to image</button>
+
+    <div id='visualization' style="width:100%;height:700px" class="full">
+    <div id="img_div">
+  &nbsp;
+</div>
+  </body> 
+</html> 
+​
