@@ -3,7 +3,56 @@ Ext.require(['Ext.tip.QuickTipManager', 'Ext.menu.*', 'Ext.form.field.ComboBox',
 // TODO: These are useless, must remove them and refactor eveything that uses them to use socialcalc.rccolname
 colnames = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AH", "AI", "AJ", "AK"];
 
-Ext.onReady(function() {
+
+function wholesheet() {return ("A1:"+SocialCalc.rcColname(spreadsheet.sheet.attribs.lastcol) + spreadsheet.sheet.attribs.lastrow);}
+
+//exportAsJSON = function(a, b) {
+function exportAsJSON_old (a, b) {    
+    var exobj = {
+        save: _co.CreateSheetSave() + "\ncopiedfrom:"+ wholesheet() + "\n",
+        extinfo: JSON.parse(httpget(_CONFIG.Wserver, _CONFIG.Wport, "/HGETALL/rs-" + _room + ""))["HGETALL"]
+    };
+    displayMsg(JSON.stringify(exobj), "Exported sheet:");
+}
+
+//exportAsJSON_new = function(a, b) {
+function exportAsJSON(a, b) {
+    var exobj = {
+        save: _co.CreateSheetSave() + "\ncopiedfrom:"+ wholesheet() + "\n",
+        extinfo: {scripts:window.btoa(packagescripts())}
+    };
+    displayMsg(JSON.stringify(exobj), "Exported sheet:");
+}
+
+
+
+//packagescripts = function() {
+function packagescripts() {
+    
+                saveobj = {
+                    Scratchpad: (sce_win.items.items[2].items.items[0].rawValue),
+                    onRefresh: (sce_win.items.items[2].items.items[1].rawValue),
+                    onOpen: (sce_win.items.items[2].items.items[2].rawValue)
+                };
+                if (top.extwindows) saveobj["extwindows"]=top.extwindows.map(function(e){e.wref=null;return e});
+                console.log((JSON.stringify(saveobj)));
+    
+    
+    return JSON.stringify(saveobj);
+}
+
+savescripts = function()            {     /*
+                            localStorage.setItem('script1', top["script1-inputEl"].value);
+                            localStorage.setItem('script2', top["script2-inputEl"].value);
+                            localStorage.setItem('script3', top["script3-inputEl"].value);
+			    console.log(top["script1-inputEl"].value);*/
+                httppost(_CONFIG.Wserver, _CONFIG.Wport, "/", "HSET/rs-" + _room + "/scripts/" + encodeURIComponent(window.btoa(packagescripts())));
+                //Ext.example.msg('Warning', 'Function is not yet implemented');
+}
+
+
+
+Ext.onReady(function() { 
 
     // GRID
     /*
@@ -21,6 +70,8 @@ gridwin=Ext.create('Ext.window.Window', {
     }
 });
 */
+
+
 
     function onSToggle(item, pressed) {
         if (!win) {
@@ -253,10 +304,7 @@ gridwin=Ext.create('Ext.window.Window', {
             checkHandler: onItemCheck
         },
         {text:"Export",menu:{items:[
-                {text:"to JSON file",handler:function(a,b){
-                    var exobj = {save:_co.CreateSheetSave()+"\ncopiedfrom:A1:"+SocialCalc.rcColname(spreadsheet.sheet.attribs.lastcol)+spreadsheet.sheet.attribs.lastrow+"\n",extinfo:JSON.parse(httpget(_CONFIG.Wserver,_CONFIG.Wport,"/HGETALL/rs-" + _room + ""))["HGETALL"]};
-                    displayMsg(JSON.stringify(exobj),"Exported sheet:");
-                }},
+                {text:"to JSON file",handler:exportAsJSON},
                 {text:"to CSV",handler:function(){displayMsg(SocialCalc.Formula.RangeTo2D("A1:"+SocialCalc.rcColname(spreadsheet.sheet.attribs.lastcol)+spreadsheet.sheet.attribs.lastrow).map(function(e){return e.join(",")}).join("\n"),"CSV:");}}
             ]}},        
         {
@@ -832,21 +880,6 @@ gridwin=Ext.create('Ext.window.Window', {
         }]
     });
 
-savescripts = function()            {     /*
-                            localStorage.setItem('script1', top["script1-inputEl"].value);
-                            localStorage.setItem('script2', top["script2-inputEl"].value);
-                            localStorage.setItem('script3', top["script3-inputEl"].value);
-			    console.log(top["script1-inputEl"].value);*/
-                saveobj = {
-                    Scratchpad: (sce_win.items.items[2].items.items[0].rawValue),
-                    onRefresh: (sce_win.items.items[2].items.items[1].rawValue),
-                    onOpen: (sce_win.items.items[2].items.items[2].rawValue)
-                };
-                if (top.extwindows) saveobj["extwindows"]=top.extwindows.map(function(e){e.wref=null;return e});
-                console.log((JSON.stringify(saveobj)));
-                httppost(_CONFIG.Wserver, _CONFIG.Wport, "/", "HSET/rs-" + _room + "/scripts/" + encodeURIComponent(window.btoa(JSON.stringify(saveobj))));
-                //Ext.example.msg('Warning', 'Function is not yet implemented');
-}
 
 tEval = function (s) {eval(s);}
 
