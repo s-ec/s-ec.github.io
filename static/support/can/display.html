@@ -133,6 +133,7 @@ addthis = function(w){
     console.log(w.name);
     var prefix = (w.name.replace("c_TA_","o_TA_"));
     var funname=(w.name.replace("c_TA_","_f"));
+    console.log("FUNNAME",funname);
     
     var tapars={funname:funname};
     var argarr=[];
@@ -193,18 +194,18 @@ addthis = function(w){
     console.log(argarr);
     NEWSERIESDATA=window.opener[funname].apply(this,argarr);
     if (outs == 1) {
-        NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA.reverse()]);
+        NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA]);
         defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f",""),index:destinationaxis});
         console.log(NEWDATAARRAY);
-        window.location.reload(); // TODO: use addseries
+        //window.location.reload(); // TODO: use addseries
     }
     else {
         console.log("more than one out, do something");
         console.log(NEWSERIESDATA);
         for (var ee in NEWSERIESDATA) {
-            NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA[ee].reverse()]); 
+            NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA[ee]]); 
             defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f","")+ee,index:destinationaxis});
-            window.location.reload(); // this can prolly be avoided
+            //window.location.reload(); // this can prolly be avoided
         }
         // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
     }
