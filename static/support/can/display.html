@@ -197,7 +197,7 @@ addthis = function(w){
         NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA]);
         defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f",""),index:destinationaxis});
         console.log(NEWDATAARRAY);
-        //window.location.reload(); // TODO: use addseries
+        window.location.reload(); // TODO: use addseries
     }
     else {
         console.log("more than one out, do something");
@@ -205,7 +205,7 @@ addthis = function(w){
         for (var ee in NEWSERIESDATA) {
             NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA[ee]]); 
             defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f","")+ee,index:destinationaxis});
-            //window.location.reload(); // this can prolly be avoided
+            window.location.reload(); // this can prolly be avoided
         }
         // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
     }
