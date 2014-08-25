@@ -159,14 +159,15 @@ addthis = function(w){
             //console.log ( allselects[ea].name , allselects[ea].value    ) 
             //console.log( "which is" , nam2axisobj(allselects[ea].value) )
             if (allselects[ea].name.indexOf("_toAxis")>-1) {console.log ( "TOAXIS" , allselects[ea].value    );destinationaxis=allselects[ea].value=="own"?(window["vertpanesno"]+1):nam2axisobj(allselects[ea].value).index;  } 
-            if (allselects[ea].name.indexOf("_onSeries")>-1) {targseridx=allselects[ea].value; console.log ( "ONseries" , allselects[ea].value ) ; } 
+            if (allselects[ea].name.indexOf("_onSeries")>-1) {targseridx=Number(allselects[ea].value); console.log ( "ONseries" , allselects[ea].value ) ; } 
             } }
     }
     
     var fdefarr=pobj[(w.name.replace("c_TA_","o_TA_"))];
     console.log(fdefarr); 
     
-    var seriesInTarget= index2axisobj(targseridx+1).dat[0].length;
+    var seriesInTarget= index2axisobj(+Number(targseridx)+Number(1)).dat[0].length;
+
     console.log("seriesInTarget:",seriesInTarget);
     
     var outs=0;
