@@ -33,8 +33,7 @@ function indexDef(obj) {
         top = (55 + (obj.index - 2) * addtlh) + "%";
         height = (45 / (totalitems - 1)) + "%";
     }
-    return (obj.index!=1?
-        {
+    return ({
         labels: {
             align: 'right',
             x: -3
@@ -46,24 +45,12 @@ function indexDef(obj) {
         height: height,
         offset: 0,
         lineWidth: 2
-    }:{
-
-                labels: {
-                    align: 'right',
-                    x: -3
-                },
-                title: {
-                    text: obj.nam
-                },
-                height: height,
-                lineWidth: 2
-        
     });
 }
 
 function dataDef(obj) {
     var type;
-    if (obj.index == 1) {
+    if (obj.dat[0].length > 4) { // se nam contiene OHLC! oppure se ci sono almeno 5 elementi in obj.dat[0].length
         type = "candlestick"
     }
     else {
@@ -209,7 +196,7 @@ addthis = function(w){
         NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA.reverse()]);
         defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f",""),index:destinationaxis});
         console.log(NEWDATAARRAY);
-        //.location.reload()
+        window.location.reload(); // TODO: use addseries
     }
     else {
         console.log("more than one out, do something");
@@ -217,7 +204,7 @@ addthis = function(w){
         for (var ee in NEWSERIESDATA) {
             NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA[ee].reverse()]); 
             defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f","")+ee,index:destinationaxis});
-            //window.location.reload()
+            window.location.reload(); // this can prolly be avoided
         }
         // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
     }
@@ -248,7 +235,7 @@ chart1=new Highcharts.StockChart( {
         selected: 1
     }
     , series:defarr.map(dataDef)
-    , yAxis : defarr.map(indexDef)
+    , yAxis : arrayUnique(defarr.map(indexDef))
 }
 );
 
