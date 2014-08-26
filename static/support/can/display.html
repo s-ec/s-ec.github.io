@@ -159,6 +159,7 @@ addthis = function(w){
             //console.log ( allselects[ea].name , allselects[ea].value    ) 
             //console.log( "which is" , nam2axisobj(allselects[ea].value) )
             if (allselects[ea].name.indexOf("_toAxis")>-1) {console.log ( "TOAXIS" , allselects[ea].value    );destinationaxis=allselects[ea].value=="own"?(window["vertpanesno"]+1):nam2axisobj(allselects[ea].value).index;  } 
+            // TODO : vertpanesno is incorrectly calced
             if (allselects[ea].name.indexOf("_onSeries")>-1) {targseridx=Number(allselects[ea].value); console.log ( "ONseries" , allselects[ea].value ) ; } 
             } }
     }
@@ -245,6 +246,9 @@ chart1=new Highcharts.StockChart( {
 function axes2menu() {
 assi=chart1.axes.filter(function(x){return x.coll=="yAxis"});
 window["vertpanesno"]=assi.length;
+
+//TODO above is incorrect, use defarr?
+
 return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+x.axisTitle.textStr+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
 }
 window.amenutxt=axes2menu();
