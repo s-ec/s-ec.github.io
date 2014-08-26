@@ -20,10 +20,13 @@ pobj={"o_TA_ACCBANDS":["$startIdx","$endIdx","$inHigh","$inLow","$inClose","$opt
 
 
     function cdlinit() {
+	var parentwin;
+	parentwin=window.opener!=null?window.opener:top;	
+		
 		
 		bs="";
 for (var i in pobj) {
-	if (window.opener[i.replace("o_TA_","_f")]) {
+	if (parentwin[i.replace("o_TA_","_f")]) {
     bs+="<table cellpadding=0 cellspacing=0 border=0><tr><td width=222> <input type='checkbox' name='"+i.replace("o_TA_","c_TA_")+"' value='0' onclick='addthis(this)'> "+i.replace("o_TA_","")+""+"</td>";
     for (var p in pobj[i])
         {

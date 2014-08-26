@@ -11,6 +11,8 @@
 
 	<script>
 	
+	parentwin=window.opener!=null?window.opener:top;	
+	
 arrayUnique = function(a) {
     return a.reduce(function(p, c) {
         if (p.indexOf(c) < 0) p.push(c);
@@ -65,7 +67,7 @@ function dataDef(obj) {
 }
 
     
-    var winarr  = (window.opener != null) ? window.opener.extwindows : top.extwindows; //not really a csv
+    var winarr  = (parentwin != null) ? parentwin.extwindows : top.extwindows; //not really a csv
     thiswinidx=-1;
     for (ea in winarr) {
         if (winarr[ea]["wref"] == this.window) {
@@ -140,11 +142,11 @@ addthis = function(w){
     var targseridx;
     var destinationaxis;
     
-    giornis=window.opener.Transpose(index2axisobj(1).dat)[0];
+    giornis=parentwin.Transpose(index2axisobj(1).dat)[0];
     //console.log("giornis:",giornis);  //whitespace is cool. 
     
     
-    console.log( funname , window.opener[funname].length  );
+    console.log( funname , parentwin[funname].length  );
     var optpars={};
     allinputs=document.querySelectorAll("input");
     for (var ea in allinputs) {
@@ -177,10 +179,10 @@ addthis = function(w){
             //rimane da gestire gli in.
             
             if (fdefarr[e].indexOf("$in")==0) {
-                if (fdefarr[e]=="$inReal" || fdefarr[e]=="$inClose") {  if (seriesInTarget>=4) { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[4]) } else { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
-                if (fdefarr[e]=="$inOpen") {  if (seriesInTarget>=4) { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[1]) } else { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[1]) }  }
-                if (fdefarr[e]=="$inHigh") {  if (seriesInTarget>=4) { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[2]) } else { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
-                if (fdefarr[e]=="$inLow") {  if (seriesInTarget>=4) { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[3]) } else { argarr.push(window.opener.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
+                if (fdefarr[e]=="$inReal" || fdefarr[e]=="$inClose") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[4]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
+                if (fdefarr[e]=="$inOpen") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  }
+                if (fdefarr[e]=="$inHigh") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[2]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
+                if (fdefarr[e]=="$inLow") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[3]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
             }
 
 
@@ -194,9 +196,9 @@ addthis = function(w){
     }
     
     console.log(argarr);
-    NEWSERIESDATA=window.opener[funname].apply(this,argarr);
+    NEWSERIESDATA=parentwin[funname].apply(this,argarr);
     if (outs == 1) {
-        NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA]);
+        NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA]);
         defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f",""),index:destinationaxis});
         console.log(NEWDATAARRAY);
         window.location.reload(); // TODO: use addseries
@@ -205,7 +207,7 @@ addthis = function(w){
         console.log("more than one out, do something");
         console.log(NEWSERIESDATA);
         for (var ee in NEWSERIESDATA) {
-            NEWDATAARRAY = window.opener.Transpose([giornis, NEWSERIESDATA[ee]]); 
+            NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA[ee]]); 
             defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f","")+ee,index:destinationaxis});
             window.location.reload(); // this can prolly be avoided
         }

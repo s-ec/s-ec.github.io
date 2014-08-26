@@ -1,9 +1,12 @@
 
-if (origintop===undefined)
+if (typeof origintop=="undefined" || origintop==null)
 refwin=top;
 else
 refwin=origintop;
-
+console.log("refwin:");console.log(refwin);
+console.log("top:");console.log(top);
+console.log(typeof origintop);
+console.log(origintop);
 
 
 eurl= '/static/support/exteditor/miniace.htm';
@@ -61,7 +64,7 @@ savescriptsnew = function()            {     /*
             id: 'exec'+rnd,
             tooltip: 'exec',
             handler: function() {
-                origintop.tEval(refwin.diseditor["Scratchpad"].getSession().getValue()); // may need changing to support multiple wins?
+                refwin.tEval(refwin.diseditor["Scratchpad"].getSession().getValue()); // may need changing to support multiple wins?
             }
         },{
             xtype: 'button',
@@ -80,7 +83,7 @@ savescriptsnew = function()            {     /*
             tooltip: 'Download to file',
             handler: function() {
                 console.log(refwin.diseditor["Scratchpad"].getCopyText()) ;
-                origintop.tEval(refwin.diseditor["Scratchpad"].getCopyText())  ; // must change to get currently focused tab. should. never will.
+                refwin.tEval(refwin.diseditor["Scratchpad"].getCopyText())  ; // must change to get currently focused tab. should. never will.
             }
         } 
 
