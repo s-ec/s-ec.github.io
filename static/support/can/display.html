@@ -22,6 +22,16 @@ arrayUnique = function(a) {
 
 window["vertpanesno"]=0;
 
+function defarr2axes() {
+	var ret=[];
+	uniques=arrayUnique(defarr.map(function(x){return x.index}));
+	for (var ea in uniques) {
+			ret.push({index:uniques[ea],nam: defarr.filter(function(y){return (y.index==uniques[ea])}).map(function(x){return x.nam}).join(" ") });
+		} // bonus points for redoing this loop with a .map call
+	return ret;
+	}
+
+
 function indexDef(obj) {
     var top, height;
     var totalitems = arrayUnique(defarr.map(function(x) {return(x.index) })).length;
@@ -160,7 +170,8 @@ addthis = function(w){
         if (allselects[ea].name) {if (allselects[ea].name.indexOf(w.name.replace("c_","s_") )==0) { 
             //console.log ( allselects[ea].name , allselects[ea].value    ) 
             //console.log( "which is" , nam2axisobj(allselects[ea].value) )
-            if (allselects[ea].name.indexOf("_toAxis")>-1) {console.log ( "TOAXIS" , allselects[ea].value    );destinationaxis=allselects[ea].value=="own"?(window["vertpanesno"]+1):nam2axisobj(allselects[ea].value).index;  } 
+            //if (allselects[ea].name.indexOf("_toAxis")>-1) {console.log ( "TOAXIS" , allselects[ea].value    );destinationaxis=allselects[ea].value=="own"?(window["vertpanesno"]+1):nam2axisobj(allselects[ea].value).index;  } 
+            if (allselects[ea].name.indexOf("_toAxis")>-1) {console.log ( "TOAXIS" , allselects[ea].value    );destinationaxis=allselects[ea].value=="own"?(window["vertpanesno"]+1):Number(allselects[ea].value);  } 
             // TODO : vertpanesno is incorrectly calced
             if (allselects[ea].name.indexOf("_onSeries")>-1) {targseridx=Number(allselects[ea].value); console.log ( "ONseries" , allselects[ea].value ) ; } 
             } }
@@ -240,18 +251,19 @@ chart1=new Highcharts.StockChart( {
         selected: 1
     }
     , series:defarr.map(dataDef)
-    , yAxis : arrayUnique(defarr.map(indexDef))
+    , yAxis : defarr2axes().map(indexDef)
 }
 );
 
 
 function axes2menu() {
 assi=chart1.axes.filter(function(x){return x.coll=="yAxis"});
-window["vertpanesno"]=assi.length;
+window["vertpanesno"]=arrayUnique(assi.map(function(x){return x.userOptions.index})).length;
 
 //TODO above is incorrect, use defarr?
 
-return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+x.axisTitle.textStr+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
+//return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+x.axisTitle.textStr+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
+return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+(x.userOptions.index+1)+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
 }
 window.amenutxt=axes2menu();
 function series2menu() {
@@ -260,7 +272,7 @@ return ( chart1.series.map(function(x){return (x.index==0?"<option selected valu
 window.smenutxt=series2menu();
 
 index2axisobj=function(i){return (defarr.filter(function(x){return (x.index==i)})[0])     }
-nam2axisobj=function(i){return (defarr.filter(function(x){return (x.nam==i)})[0])     }
+nam2axisobj=function(i){return (defarr.filter(function(x){return (x.nam==i)})[0])     } // deletable?
 
 
 
