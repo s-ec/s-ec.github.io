@@ -243,7 +243,7 @@ chart1=new Highcharts.StockChart( {
                     document.getElementById("optsdiv").style.display="block"; document.getElementById("container").style.display="none";
                     //alert('Clicked');
                 }
-                , symbol:'circle'
+                , symbol:'menu', text:'indicators'
             }
         }
     },
@@ -259,8 +259,6 @@ chart1=new Highcharts.StockChart( {
 function axes2menu() {
 assi=chart1.axes.filter(function(x){return x.coll=="yAxis"});
 window["vertpanesno"]=arrayUnique(assi.map(function(x){return x.userOptions.index})).length;
-
-//TODO above is incorrect, use defarr?
 
 //return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+x.axisTitle.textStr+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
 return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+(x.userOptions.index+1)+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
