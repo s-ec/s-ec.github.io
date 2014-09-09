@@ -160,14 +160,14 @@ addthis = function(w){
     console.log( funname , parentwin[funname].length  );
     var optpars={};
     allinputs=document.querySelectorAll("input");
-    for (var ea in allinputs) {
+    for (var ea in allinputs) { // subopt.... 
         if (allinputs[ea].name) {if (allinputs[ea].name.indexOf(w.name.replace("c_","o_") )==0) { 
             console.log ( allinputs[ea].name.replace(prefix,"$optIn") , allinputs[ea].value    ) ;
             tapars[ allinputs[ea].name.replace(prefix,"$optIn") ]= allinputs[ea].value   ;
             } }
     }
     allselects=document.querySelectorAll("select");
-    for (var ea in allselects) {
+    for (var ea in allselects) { // subopt
         if (allselects[ea].name) {if (allselects[ea].name.indexOf(w.name.replace("c_","s_") )==0) { 
             //console.log ( allselects[ea].name , allselects[ea].value    ) 
             //console.log( "which is" , nam2axisobj(allselects[ea].value) )
@@ -225,7 +225,6 @@ addthis = function(w){
         NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA]);
         defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f",""),index:destinationaxis});
         console.log(NEWDATAARRAY);
-        window.location.reload(); // TODO: use addseries
     }
     else {
         console.log("more than one out, do something");
@@ -233,10 +232,12 @@ addthis = function(w){
         for (var ee in NEWSERIESDATA) {
             NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA[ee]]); 
             defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f","")+ee,index:destinationaxis});
-            window.location.reload(); // TODO: this can prolly be avoided ANS SHOULD DEFINITELY BE OUTSIDE THIS LOOP TODO: TODO:
         }
+    window.location.reload(); // TODO: use addseries
+    
         // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
     }
+    remconf();
     // NO DEVI CONTROLLARE QUANTI out ci sono , cosi' va bene solo per 1 out.. fai un for each su NEWSERIESDATA
     // sei fortunello solo BBANDS ha piu' di un output...
     // aggiungi NEWDATAARRAY alla chart, o in un nuovo asse o meno ma aggiungilo e poi chiama redraw
@@ -258,17 +259,23 @@ function remconf(){document.getElementById("confdiv").style.display="none";}
 
 function restoreTemplate(w){alert(w);console.log(JSON.parse(localStorage.getItem("TAT_ARR"))[w])}
 
-lsobj2templatemenu = function(){
-try{
-var ret=[];    
-var t=JSON.parse(localStorage.getItem("TAT_ARR"));
-for (var e in t) {  ret.push({text:e,onclick:function(a){restoreTemplate(a.target.textContent)}})  }
+lsobj2templatemenu = function() {
+    try {
+        var ret = [];
+        var t = JSON.parse(localStorage.getItem("TAT_ARR"));
+        for (var e in t) {
+            ret.push({
+                text: e,
+                onclick: function(a) {
+                    restoreTemplate(a.target.textContent)
+                }
+            })
+        }
+    } catch (e) {}
+    return ret;
 }
-catch(e){}
-return ret;
-}
-   
 
+createChart = function(){
 chart1=new Highcharts.StockChart( {
     chart: {
         renderTo:'container'
@@ -293,7 +300,7 @@ chart1=new Highcharts.StockChart( {
                 {text:"import template",onclick:function(){alert(prompt("template URL?"))}},
                 {text:"export template",onclick:function(){alert(prompt("template URL?"))}},
                 {text:"test",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")}},
-                {text:"enable navigator",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")}}
+                {text:"enable navigator",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")},separator:true }
                 ].concat(lsobj2templatemenu())
                 , symbol:'menu', text:'templates'
             },
@@ -318,7 +325,9 @@ chart1=new Highcharts.StockChart( {
     , yAxis : defarr2axes().map(indexDef)
 }
 );
+}
 
+createChart();
 
 function axes2menu() {
 assi=chart1.axes.filter(function(x){return (x.coll=="yAxis" && typeof x.axisTitle == "object")  });
