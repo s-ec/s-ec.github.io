@@ -1,3 +1,4 @@
+
 o1_1_1={AVGDEV:1,CMO:1,DEMA:1,EMA:1,KAMA:1,LINEARREG:1,LINEARREG_ANGLE:1,LINEARREG_INTERCEPT:1,LINEARREG_SLOPE:1,MAX:1,MIDPOINT:1,MIN:1,MOM:1,ROC:1,ROCP:1,ROCR:1,ROCR100:1,RSI:1,SMA:1,SUM:1,TEMA:1,TRIMA:1,TRIX:1,TSF:1,WMA:1}
 
 o2_1_0={MULT:1,ADD:1,SUB:1,DIV:1};
@@ -18,29 +19,57 @@ pobj={"o_TA_ACCBANDS":["$startIdx","$endIdx","$inHigh","$inLow","$inClose","$opt
 
 TMPARRAYTODEL=["$optInTimePeriod", "$optInFastPeriod", "$optInSlowPeriod", "$optInMAType", "$optInNbDevUp", "$optInNbDevDn", "$optInPenetration", "$optInFastMAType", "$optInSlowMAType", "$optInSignalPeriod", "$optInSignalMAType", "$optInFastLimit", "$optInSlowLimit", "$optInMinPeriod", "$optInMaxPeriod", "$optInStartValue", "$optInOffsetOnReverse", "$optInAccelerationInitLong", "$optInAccelerationLong", "$optInAccelerationMaxLong", "$optInAccelerationInitShort", "$optInAccelerationShort", "$optInAccelerationMaxShort", "$optInAcceleration", "$optInMaximum", "$optInNbDev", "$optInFastK_Period", "$optInFastD_Period", "$optInFastD_MAType", "$optInSlowK_Period", "$optInSlowK_MAType", "$optInSlowD_Period", "$optInSlowD_MAType", "$optInVFactor", "$optInTimePeriod1", "$optInTimePeriod2", "$optInTimePeriod3"];
 
-dfltsObj={"$optInTimePeriod":1,"$optInFastPeriod":1,"$optInSlowPeriod":1,"$optInMAType":1,"$optInNbDevUp":1,"$optInNbDevDn":1,"$optInPenetration":1,"$optInFastMAType":1,"$optInSlowMAType":1,"$optInSignalPeriod":1,"$optInSignalMAType":1,"$optInFastLimit":1,"$optInSlowLimit":1,"$optInMinPeriod":1,"$optInMaxPeriod":1,"$optInStartValue":1,"$optInOffsetOnReverse":1,"$optInAccelerationInitLong":1,"$optInAccelerationLong":1,"$optInAccelerationMaxLong":1,"$optInAccelerationInitShort":1,"$optInAccelerationShort":1,"$optInAccelerationMaxShort":1,"$optInAcceleration":1,"$optInMaximum":1,"$optInNbDev":1,"$optInFastK_Period":1,"$optInFastD_Period":1,"$optInFastD_MAType":1,"$optInSlowK_Period":1,"$optInSlowK_MAType":1,"$optInSlowD_Period":1,"$optInSlowD_MAType":1,"$optInVFactor":1,"$optInTimePeriod1":1,"$optInTimePeriod2":1,"$optInTimePeriod3":1};
+dfltsObj={"$optInTimePeriod":14,"$optInFastPeriod":6,"$optInSlowPeriod":12,"$optInMAType":1,"$optInNbDevUp":2,"$optInNbDevDn":2,"$optInPenetration":1,"$optInFastMAType":1,"$optInSlowMAType":1,"$optInSignalPeriod":1,"$optInSignalMAType":1,"$optInFastLimit":1,"$optInSlowLimit":1,"$optInMinPeriod":1,"$optInMaxPeriod":1,"$optInStartValue":1,"$optInOffsetOnReverse":1,"$optInAccelerationInitLong":1,"$optInAccelerationLong":1,"$optInAccelerationMaxLong":1,"$optInAccelerationInitShort":1,"$optInAccelerationShort":1,"$optInAccelerationMaxShort":1,"$optInAcceleration":1,"$optInMaximum":1,"$optInNbDev":1,"$optInFastK_Period":1,"$optInFastD_Period":1,"$optInFastD_MAType":1,"$optInSlowK_Period":1,"$optInSlowK_MAType":1,"$optInSlowD_Period":1,"$optInSlowD_MAType":1,"$optInVFactor":1,"$optInTimePeriod1":5,"$optInTimePeriod2":10,"$optInTimePeriod3":20};
 
+taobj={};
     function cdlinit() {
 	var parentwin;
 	parentwin=window.opener!=null?window.opener:top;	
 		
-		
+		var curtab,curtabname;
 		bs="";
 for (var i in pobj) {
 	if (parentwin[i.replace("o_TA_","_f")]) {
-    bs+="<table cellpadding=0 cellspacing=0 border=0><tr><td width=222> <input type='checkbox' name='"+i.replace("o_TA_","c_TA_")+"' value='0' onclick='addthis(this)'> "+i.replace("o_TA_","")+""+"</td>";
+		curtabname=i.replace("o_TA_","");
+		curtab="";
+    //curtab+="<table cellpadding=0 cellspacing=0 border=0><tr><td width=222> <input type='checkbox' name='"+i.replace("o_TA_","c_TA_")+"' value='0' onclick='addthis(this)'> "+i.replace("o_TA_","")+""+"</td>";
+    curtab+="<table cellpadding=0 cellspacing=0 border=0><tr><td width=222>"+i.replace("o_TA_","")+""+"</td>";
     for (var p in pobj[i])
         {
+			var parname=pobj[i][p].replace("$optIn",""); 
             if (pobj[i][p].indexOf("$optIn")==0)
-            bs+="<td width=80 align=right>"+pobj[i][p].replace("$optIn","")+":</td><td width=55 align=left>"+"<input type='text' name='"+i+pobj[i][p].replace("$optIn","")+"' style='width:50px'> </td>"
+            curtab+="<td width=80 align=right>"+parname+":</td><td width=55 align=left>"+"<input type='text' name='"+i+parname+"' style='width:50px' value='"+dfltsObj[pobj[i][p]]+"'> </td>"
             
         }    
-    bs+="<td></td><td width=222 align=right><select name='"+i.replace("o_TA_","s_TA_")+"_toAxis'>"+window.amenutxt+"</select></td>"+
-    "<td width=2 align=right><select name='"+i.replace("o_TA_","s_TA_")+"_onSeries'>"+window.smenutxt+"</select></td></tr></table>";
+    curtab+="<td></td><td width=222 align=right><select name='"+i.replace("o_TA_","s_TA_")+"_toAxis'>"+window.amenutxt+"</select></td>"+
+    "<td width=2 align=right><select name='"+i.replace("o_TA_","s_TA_")+"_onSeries'>"+window.smenutxt+"</select></td><td width=5><input type='button' value='X' onclick='remconf()'></td><td width=5><input type='button' value='add'  onclick='addthis({name:\""+i.replace("o_TA_","c_TA_")+"\"})' ></td></tr></table>";
+    bs+=curtab;
+    taobj[curtabname]=curtab;
  }
     
 }
+
+// useless code for ref
+cdlmenu=[];
+indmenu=[];
+cdlmenustr="[";
+indmenustr="[";
+for (var i in pobj) { // this should really be inside the above loop. or done statically
+if (parentwin[i.replace("o_TA_","_f")]) {
+var xname=i.replace("o_TA_","");
+if (xname.indexOf("CDL")>-1) {cdlmenu.push({text:xname,onclick:function(){alert(xname)}})}
+else { indmenu.push({text:xname,onclick:function(){alert(xname)}})
+	}
+if (xname.indexOf("CDL")>-1) {cdlmenustr+="{text:'"+xname+"',onclick:function(){addTA('"+xname+"')}},"}
+else {indmenustr+="{text:'"+xname+"',onclick:function(){addTA('"+xname+"')}},"}
+}
+}
+
+		indmenustr[indmenustr.length-1]="]";
+		cdlmenustr[indmenustr.length-1]="]";
+// end useless code
 		
-        document.getElementById("optsdiv").innerHTML+=bs;
+        //document.getElementById("optsdiv").innerHTML+=bs;
+        //left for reference
         
     }
