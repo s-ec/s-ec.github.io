@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head id="head">
+
+<!---
+<link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoAwAAFgAAACgAAAAQAAAAIAAAAAEAGAAAAAAAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4f8A4f8A4f8A4f8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4HwAA4AcAAMADAACAAQAAgAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIABAACAAQAAwAMAAOAHAAD4HwAA" rel="icon" type="image/x-icon" />
+
+<link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBQAAFgAAACgAAAAQAAAAIAAAAAEACAAAAAAAAAEAAAAAAAAAAAAAAAEAAAAAAAD///8ATk7iAHl50gAYGOgANjboAAAA7gAvL+EAFxfnAICAygCUlN4AhITdAJOT3QBsbOMAdnbPABsb6wBKSt4AXV3UADIy5ACRkdsAGhrqAIODzQCBgdoAwMDeAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIEAYGEAgAAAAAAAAAAAgHBQUFBQUFBwgAAAAAAA0FBQUFBQUFBQUFDQAAABQFBQUFBQUFBQUFBQUUAAADBQUFBQUFBQUFBQUFAwACBQUFBQUFBQUFBQUFBQUCDwUFBQUFBQUFBQUFBQUFDxEFBQUFBQUFBQUFBQUFBRERBQUFBQUFBQUFBQUFBQURAQUFBQUFBQUFBQUFBQUFARUFBQUFBQUFBQUFBQUFBRUAEwUFBQUFBQUFBQUFBRMAABIFBQUFBQUFBQUFBQUSAAAACgUFBQUFBQUFBQUKAAAAAAALBQUFBQUFBQ4LAAAAAAAAAAAWDAQEDAkAAAAAAPgfAADgBwAAwAMAAIABAACAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAEAAIABAADAAwAA4AcAAPgfAAA=" rel="icon" type="image/x-icon" />
+--->
+<link href="data:image/x-icon;base64,AAABAAEAEBAAAAAAAABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4AKSmRADEx5wAxMf8AMTH/ADEx5wApKZEAAAAOAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF4AKCj/AF5e/wBbW/8AW1v/AFtb/wBbW/8AXl7/ACEh/wAAAF4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGAAAAD/AAAA/wBjY/8AdHT/AHNz/wBzc/8AdXX/AF5e/wAAAP8AAAD/AAAAYgAAAAAAAAAAAAAAAAAAABIAAAD/AAAA/wAAAP8AKSn/AImJ/wCGhv8Ahob/AImJ/wAjI/8AAAD/AAAA/wAAAP8AAAAUAAAAAAAAAAAAAACbAAAA/wAAAP8AAAD/AAAA/wBqav8AnJz/AJyc/wBpaf8AAAD/AAAA/wAAAP8AAAD/AAAAnwAAAAAAAAAAAAAA8wAAAP8AAAD/AAAA/wAAAP8AQ0P/AIGB/wCFhf8APT3/AAAA/wAAAP8AAAD/AAAA/wAAAPcAAAAAAAAAAAAREf8AEBD/AA4O/wAKCv8AAgL/AGxs/wAAAP8AAAD/AG1t/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAAAAAAAAAra3/AMjI/wDHx/8Ax8f/AMnJ/wCurv8AAQH/ABIS/wC2tv8Aycn/AMjI/wDHx/8AyMj/AKur/wAAAAIAAAAAAKSk+wDMzP8Aysr/AMrK/wDKyv8Az8//AIWF/wCFhf8Az8//AMrK/wDKyv8Aysr/AMzM/wCkpPsAAAAAAAAAAACQkKcA19f/ANTU/wDU1P8A2Nj/AKam/wAAAP8AAAD/AKys/wDX1/8A1NT/ANTU/wDX1/8Aj4+pAAAAAAAAAAAAAAAgAMrK/wDf3/8A3t7/AN/f/wAsLP8AAAD/AAAA/wA4OP8A4uL/AN7e/wDf3/8Ay8v/AAAAIAAAAAAAAAAAAAAAAAB0dHwA4+P/AO/v/wCYmP8AAAD/AAAA/wAAAP8AAAD/AKWl/wDu7v8A4+P/AHNzfAAAAAAAAAAAAAAAAAAAAAAAAAAAAH5+fgDLy/8ABAT/AAAA/wAAAP8AAAD/AAAA/wAbG/8A1NT/AH19gQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAkAAAAsQAAAP8AAAD/AAAA/wAAAP8AAACxAAAAJgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgAAAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA//8AAPgfAADwDwAA4AcAAMADAACAAQAAgAEAAIABAACAAQAAgAEAAIABAADAAwAA4AcAAPAHAAD4HwAA//8AAA==" rel="icon" type="image/x-icon" />
+
+
+<meta charset="utf-8" />
+<meta content="IE=edge,chrome=IE9" http-equiv="X-UA-Compatible"/>
+<title>alpha demo - Share the URL with your friends and edit together!</title>
+    
+    <script type="text/javascript" src="static/support/ext-all.js"></script>
+    <script type="text/javascript" src="static/support/include-theme.js"></script>
+
+    
+    <script type="text/javascript" src="static/support/examples.js"></script>
+    <script type="text/javascript" src="static/support/states.js"></script>
+
+	    <script type="text/javascript" src="static/support/layout.js"></script>
+    <script type="text/javascript" src="static/support/menus.js"></script>
+    
+    <link rel="stylesheet" type="text/css" href="static/support/menus.css" />
+    <link rel="stylesheet" type="text/css" href="static/support/ext-all-gray.css">
+    <link rel="stylesheet" type="text/css" href="static/support/example.css" />
+<link rel="stylesheet" type="text/css" href="static/socialcalc.css">
+<link rel="stylesheet" type="text/css" href="static/index.css">
+<style>
+body
+ {font-family:verdana,helvetica,sans-serif;font-size:small;margin:0px;padding:0px;overflow:hidden;}
+.testclass {border:2px dotted red;}
+.testclass2 {background-image:url(/images/sc-logo.gif);}
+.smaller {font-size:smaller;}
+.hide {display:none;}
+.nvrt {-webkit-filter:invert(100%);}
+</style>
+
+
+
+    
+<script>
+localStorage.setItem("_ethercalc_autoexec","//loadScript('https://preview.c9.io/abiank/snippets/ansh/btc1.js?'+Math.random())");
+
+EL = function (s) {return top.document.getElementById(s)}
+isNumber = function(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function sset(what, value, type) {
+LCexec(set_str(what,value,type));
+}
+function set_str(what, value, type) {
+    var retstr;
+    if (type == undefined) {
+        if (isNumber(value)) {
+            retstr = ("set " + what + " value n " + value);
+        } else {
+            retstr = ("set " + what + " text t " + value);
+        }
+    }
+    if (type == "formula") {}
+    if (type == "html") {}
+    return retstr + "\n";
+}
+
+function loadScript(sScriptSrc, oCallback) {
+    var oHead = document.getElementById('head');
+    var oScript = document.createElement('script');
+    oScript.type = 'text/javascript';
+    oScript.src = sScriptSrc;
+    oScript.onload = oCallback;
+    oHead.appendChild(oScript);
+}
+
+loadScriptArray = function(arr, fun) {
+    if (arr.length > 1) {
+        loadScript(arr[0], function() {
+            loadScriptArray(arr.splice(1 - arr.length, arr.length), fun)
+        })
+    }
+    else {
+        loadScript(arr[0], fun);
+    }
+}
+
+var s_obj={ScratchPad:"",onOpen:"",onRefresh:""};
+if (!(window.location.hash.replace('#', ''))) {
+    if (window.location.href.match(/\/([^_][^\/]*)$/)) {
+	var _room = RegExp.$1;
+	_room=_room.split("?")[0];
+	console.log("_room:"+_room);
+	window.document.title=_room+ " "+window.location.href.split(".")[0].replace("http://","").split("/")[0]+" ";
+        var SocialCalc = { _room: _room };
+    }
+    else {
+        var SocialCalc = { _room: "_standalone_" };
+    }
+}
+global_recalc_on=false;
+ var reload = function() {
+  if (global_recalc_on) {spreadsheet.ExecuteCommand('recalc', '');eval(window.atob(s_obj.onRefresh));}	
+}
+setInterval(reload, 5000);
+
+    function CSVToArray( strData, strDelimiter ){
+    	strDelimiter = (strDelimiter || ",");
+    	var objPattern = new RegExp(
+    		(
+    			// Delimiters.
+    			"(\\" + strDelimiter + "|\\r?\\n|\\r|^)" +
+
+    			// Quoted fields.
+    			"(?:\"([^\"]*(?:\"\"[^\"]*)*)\"|" +
+
+    			// Standard fields.
+    			"([^\"\\" + strDelimiter + "\\r\\n]*))"
+    		),
+    		"gi"
+    		);
+    	var arrData = [[]];
+    	var arrMatches = null;
+    	while (arrMatches = objPattern.exec( strData )){
+
+    		var strMatchedDelimiter = arrMatches[ 1 ];
+
+    		if (
+    			strMatchedDelimiter.length &&
+    			(strMatchedDelimiter != strDelimiter)
+    			){
+
+    			arrData.push( [] );
+
+    		}
+
+    		if (arrMatches[ 2 ]){
+    			var strMatchedValue = arrMatches[ 2 ].replace(
+    				new RegExp( "\"\"", "g" ),
+    				"\""
+    				);
+
+    		} else {
+    			var strMatchedValue = arrMatches[ 3 ];
+    		}
+
+    		arrData[ arrData.length - 1 ].push( strMatchedValue );
+    	}
+    	// Return the parsed data.
+    	return( arrData );
+    }
+    
+    loadcomplete = function(){
+        console.log("body load complete");
+        if(localStorage["_ethercalc_autoexec"]!==undefined) { eval(localStorage["_ethercalc_autoexec"]) }
+        
+    }
+
+
+</script>
+<script src="static/ethercalc.js"></script>
+<script src="socket.io/socket.io.js"></script>
+<script src="zappa/zappa.js"></script>
+<script src="player/broadcast.js"></script>
+<script src="player/graph.js"></script>
+<script src="player/main.js"></script>
+</head>
+ <style type="text/css">
+        .x-panel-body p {
+            margin: 10px;
+            font-size: 12px;
+        }
+    </style>
+
+<body  onresize="if (typeof doresize != 'undefined') doresize();" onload="loadcomplete()">
+
+<!--- debug div --->
+<div style="position:absolute;z-index:100;zIndex:100;left:700px;top:100px;display:none">
+<input type="button" name="go" value="go" onclick="spreadsheet.ExecuteCommand('recalc', '');for (e in spreadsheet){console.log(e+' ');}" />
+<input type="button" id="show-btn" value="open Window"/><br/><br/>
+
+</div>
+ <div id="toolbar" style="display:block"></div>
+        <div id="tableeditor" style="margin:0px;padding:0px;">&nbsp;</div>
+</body>
+</html>
+
+
+
