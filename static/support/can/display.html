@@ -217,12 +217,9 @@ addthis = function(w){
     console.log(defobj);
     defobj.tamodels.push(modelobj);
 
-<<<<<<< HEAD
     //TEORICAFUNC([xxx].concat(modelargs))
 
     // --------------------------------
-=======
->>>>>>> 13f66e26b7c182bb4f1d6e119ada6a30c2442294
     giornis=parentwin.Transpose(index2axisobj(1).dat)[0];
     //console.log("giornis:",giornis);   
     NEWSERIESDATA=parentwin[funname].apply(this,argarr);
@@ -238,7 +235,6 @@ addthis = function(w){
             NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA[ee]]); 
             defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f","")+ee,index:destinationaxis});
         }
-<<<<<<< HEAD
     
     
         // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
@@ -247,13 +243,6 @@ addthis = function(w){
     window.location.reload(); // TODO: use addseries
 
     // --------------------------------
-=======
-    window.location.reload(); // TODO: use addseries
-    
-        // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
-    }
-    remconf();
->>>>>>> 13f66e26b7c182bb4f1d6e119ada6a30c2442294
     // NO DEVI CONTROLLARE QUANTI out ci sono , cosi' va bene solo per 1 out.. fai un for each su NEWSERIESDATA
     // sei fortunello solo BBANDS ha piu' di un output...
     // aggiungi NEWDATAARRAY alla chart, o in un nuovo asse o meno ma aggiungilo e poi chiama redraw
@@ -273,7 +262,6 @@ function addTA(wha){
 
 function remconf(){document.getElementById("confdiv").style.display="none";}
 
-<<<<<<< HEAD
 function restoreTemplate(w){ //TODO: refactor this so it uses funcs to be shared with addThis()
     //alert(w);
     var model_u = JSON.parse(localStorage.getItem("TAT_ARR"))[w];
@@ -329,9 +317,6 @@ function restoreTemplate(w){ //TODO: refactor this so it uses funcs to be shared
 }
 window.location.reload(); // TODO: use addseries
 }
-=======
-function restoreTemplate(w){alert(w);console.log(JSON.parse(localStorage.getItem("TAT_ARR"))[w])}
->>>>>>> 13f66e26b7c182bb4f1d6e119ada6a30c2442294
 
 lsobj2templatemenu = function() {
     try {
@@ -374,12 +359,8 @@ chart1=new Highcharts.StockChart( {
                 {text:"import template",onclick:function(){alert(prompt("template URL?"))}},
                 {text:"export template",onclick:function(){alert(prompt("template URL?"))}},
                 {text:"test",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")}},
-<<<<<<< HEAD
                 {separator:true },
                 {text:"enable navigator",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")}}
-=======
-                {text:"enable navigator",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")},separator:true }
->>>>>>> 13f66e26b7c182bb4f1d6e119ada6a30c2442294
                 ].concat(lsobj2templatemenu())
                 , symbol:'menu', text:'templates'
             },
