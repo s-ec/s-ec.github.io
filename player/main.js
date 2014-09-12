@@ -56,8 +56,8 @@
           */
           
           endpoint = $('script[src*="socket.io/socket.io.js"]').attr('src');
-	  endpoint = "DIOCAN";
-	  console.log("endpoint:"+endpoint);
+    endpoint = "DIOCAN";
+    console.log("endpoint:"+endpoint);
           options = {
             'connect timeout': 1,
             reconnect: false,
@@ -69,7 +69,7 @@
           }
 
 
-	  // This block in for versions of socket.io before 1.0
+    // This block in for versions of socket.io before 1.0
 //          if (endpoint) { // TODO:
 //            top.skt_connection=this$.connect(endpoint.replace(/socket.io\/socket.io.js.*/, ''));
 //          } else if (SocialCalc.CurrentSpreadsheetControlObject) {
@@ -80,9 +80,9 @@
 //            top.skt_connection=this$.connect();
 //          }
 
-	  /*
-	  if ((ref$ = this$.connect(null, options)) != null) {
-		  top.skt_connection=ref$;
+    /*
+    if ((ref$ = this$.connect(null, options)) != null) {
+      top.skt_connection=ref$;
             if ((ref1$ = ref$.io) != null) {
               ref1$.on('reconnect', function(){
                 if (!((typeof SocialCalc != 'undefined' && SocialCalc !== null) && SocialCalc.isConnected)) {
@@ -92,12 +92,12 @@
               });
             }
           }
-	  */ // SIO 1.0
-	  
-	  //x$ = (ref$ = this$.connect(null, options)) != null ? ref$.io : void 8;
-	  //x$ = (ref$ = this$.connect(null, options)) != null ? ref$.io : void 8;
+    */ // SIO 1.0
+    
+    //x$ = (ref$ = this$.connect(null, options)) != null ? ref$.io : void 8;
+    //x$ = (ref$ = this$.connect(null, options)) != null ? ref$.io : void 8;
 x$ = void 8;
-	  top.skt_connection=ref$;if (0) {
+    top.skt_connection=ref$;if (0) {
           if (x$ != null) {
             x$.on('reconnect', function(){
               if (!((typeof SocialCalc != 'undefined' && SocialCalc !== null) && SocialCalc.isConnected)) {
@@ -113,21 +113,21 @@ x$ = void 8;
               }
  
               SocialCalc.hadSnapshot = false;
-	      return Ext.Msg.alert("Disconnected from server. Reconnecting....","Disconnected from server. Reconnecting....");
+        return Ext.Msg.alert("Disconnected from server. Reconnecting....","Disconnected from server. Reconnecting....");
             });
           }
           if (x$ != null) {
             x$.on('connect_failed', function(){
 
-		    Ext.Msg.alert("Connection failed","Connection failed");
+        Ext.Msg.alert("Connection failed","Connection failed");
               });
             
           }
-	  }
+    }
 
-	  
-	  
-	  
+    
+    
+    
           emit = function(data){
             return this$.emit({
               data: data
@@ -155,6 +155,7 @@ x$ = void 8;
               room: ref
             });
           };
+    try{
           return this$.on({
             data: function(){
               var ss, editor, user, ref$, ecell, peerClass, find, cr, cell, origCR, origCell, parts, cmdstr, line, refreshCmd;
@@ -286,7 +287,11 @@ x$ = void 8;
                 window.location = '/';
               }
             }
-          });
+          }); // fine return
+  } catch(e){console.log("NOSOCKETMODE");return (null);}
+    
+    
+    
         };
         window.doresize = function(){
           var ref$;
@@ -374,7 +379,14 @@ x$ = void 8;
             });
           });
           return $(document).on('click', '#te_fullgrid tr:nth-child(2) td:first', function(){
-            return window.open("/_/" + SocialCalc._room + "/html");
+            if (SocialCalc.isConnected) {
+            return window.open("/_/" + SocialCalc._room + "/html"); }
+            // TODO: do above only if isConnected else ..
+            else {
+              var ww=window.open("about:blank");
+              ww.document.body.innerHTML=SocialCalc.SpreadsheetControlCreateSheetHTML(spreadsheet);
+            }
+            
           });
         };
         if ((ref$ = window.Document) != null && ref$.Parser) {

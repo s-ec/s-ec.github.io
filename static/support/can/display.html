@@ -179,9 +179,13 @@ addthis = function(w){
     }
     
     var fdefarr=pobj[(w.name.replace("c_TA_","o_TA_"))];
-    console.log(fdefarr); 
+    console.log(fdefarr);
+    console.log("targseridx:"+targseridx) ;
+    console.log(index2axisobj(+Number(targseridx)+Number(1)));
+    console.log(index2axisobj(+Number(targseridx)));
+
     
-    var seriesInTarget= index2axisobj(+Number(targseridx)+Number(1)).dat[0].length;
+    var seriesInTarget= index2axisobj(+Number(targseridx)+Number(1)).dat[0].length; // WTF??
 
     console.log("seriesInTarget:",seriesInTarget);
     
