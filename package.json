@@ -1,0 +1,6 @@
+{
+  "name": "nw-demo",
+  "main": "index.html",
+  "node-remote":".herokuapp.com,s-ec.github.io"
+
+}
