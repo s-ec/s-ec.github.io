@@ -9,7 +9,7 @@ console.log(typeof origintop);
 console.log(origintop);
 
 
-eurl= '/static/support/exteditor/miniace.htm';
+eurl= 'miniace.htm';
 rnd=Math.random();
 
 checkVal =function(cname){

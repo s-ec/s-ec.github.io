@@ -124,7 +124,7 @@ function dataDef(obj) {
 table {width:100%;}
 td {border-bottom:solid 1px gray;max-width:222px;}
 </style>
-<body style="padding:0px;margin:0px;" onload="cdlinit()">
+<body style="padding:0px;margin:0px;" onload="createChart()">
 <div id="confdiv" style="font-size:12px;font-family:verdana:display:none;z-index:9001">
 </div>
 <div id="optsdiv" style="font-size:12px;font-family:verdana">
@@ -243,8 +243,8 @@ addthis = function(w){
     
         // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
     }
-    //remconf();
-    window.location.reload(); // TODO: use addseries
+    remconf();chart1.destroy();createChart();
+    //window.location.reload(); // TODO: use addseries
 
     // --------------------------------
     // NO DEVI CONTROLLARE QUANTI out ci sono , cosi' va bene solo per 1 out.. fai un for each su NEWSERIESDATA
@@ -252,11 +252,9 @@ addthis = function(w){
     // aggiungi NEWDATAARRAY alla chart, o in un nuovo asse o meno ma aggiungilo e poi chiama redraw
     }
 
-indmenu=[{text:'ADXR',onclick:function(){addTA('ADXR')}},{text:'ADX',onclick:function(){addTA('ADX')}},{text:'AROONOSC',onclick:function(){addTA('AROONOSC')}},{text:'ATR',onclick:function(){addTA('ATR')}},{text:'AVGDEV',onclick:function(){addTA('AVGDEV')}},{text:'BBANDS',onclick:function(){addTA('BBANDS')}},{text:'CCI',onclick:function(){addTA('CCI')}},{text:'CMO',onclick:function(){addTA('CMO')}},{text:'DX',onclick:function(){addTA('DX')}},{text:'LINEARREG_ANGLE',onclick:function(){addTA('LINEARREG_ANGLE')}},{text:'LINEARREG_INTERCEPT',onclick:function(){addTA('LINEARREG_INTERCEPT')}},{text:'LINEARREG_SLOPE',onclick:function(){addTA('LINEARREG_SLOPE')}},{text:'LINEARREG',onclick:function(){addTA('LINEARREG')}},{text:'MACD',onclick:function(){addTA('MACD')}},{text:'MAX',onclick:function(){addTA('MAX')}},{text:'MIDPOINT',onclick:function(){addTA('MIDPOINT')}},{text:'MIDPRICE',onclick:function(){addTA('MIDPRICE')}},{text:'MIN',onclick:function(){addTA('MIN')}},{text:'MINUS_DI',onclick:function(){addTA('MINUS_DI')}},{text:'MINUS_DM',onclick:function(){addTA('MINUS_DM')}},{text:'MOM',onclick:function(){addTA('MOM')}},{text:'NATR',onclick:function(){addTA('NATR')}},{text:'PLUS_DI',onclick:function(){addTA('PLUS_DI')}},{text:'PLUS_DM',onclick:function(){addTA('PLUS_DM')}},{text:'ROCP',onclick:function(){addTA('ROCP')}},{text:'ROCR100',onclick:function(){addTA('ROCR100')}},{text:'ROCR',onclick:function(){addTA('ROCR')}},{text:'ROC',onclick:function(){addTA('ROC')}},{text:'RSI',onclick:function(){addTA('RSI')}},{text:'STDDEV',onclick:function(){addTA('STDDEV')}},{text:'TRIX',onclick:function(){addTA('TRIX')}},{text:'TSF',onclick:function(){addTA('TSF')}},{text:'VAR',onclick:function(){addTA('VAR')}},{text:'WILLR',onclick:function(){addTA('WILLR')}}];
-funmenu=[{text:'ADD',onclick:function(){addTA('ADD')}},{text:'BETA',onclick:function(){addTA('BETA')}},{text:'CORREL',onclick:function(){addTA('CORREL')}},{text:'DIV',onclick:function(){addTA('DIV')}},{text:'SUM',onclick:function(){addTA('SUM')}},{text:'SUB',onclick:function(){addTA('SUB')}},{text:'MULT',onclick:function(){addTA('MULT')}}];
-avgmenu=[{text:'DEMA',onclick:function(){addTA('DEMA')}},{text:'DIV',onclick:function(){addTA('DIV')}},{text:'DX',onclick:function(){addTA('DX')}},{text:'EMA',onclick:function(){addTA('EMA')}},{text:'KAMA',onclick:function(){addTA('KAMA')}},{text:'SMA',onclick:function(){addTA('SMA')}},{text:'TEMA',onclick:function(){addTA('TEMA')}},{text:'TRIMA',onclick:function(){addTA('TRIMA')}},{text:'WMA',onclick:function(){addTA('WMA')}},{text:'MA',onclick:function(){addTA('MA')}}];
-cdlmenu=[{text:'CDL2CROWS',onclick:function(){addTA('CDL2CROWS')}},{text:'CDL3BLACKCROWS',onclick:function(){addTA('CDL3BLACKCROWS')}},{text:'CDL3INSIDE',onclick:function(){addTA('CDL3INSIDE')}},{text:'CDL3LINESTRIKE',onclick:function(){addTA('CDL3LINESTRIKE')}},{text:'CDL3OUTSIDE',onclick:function(){addTA('CDL3OUTSIDE')}},{text:'CDL3STARSINSOUTH',onclick:function(){addTA('CDL3STARSINSOUTH')}},{text:'CDL3WHITESOLDIERS',onclick:function(){addTA('CDL3WHITESOLDIERS')}},{text:'CDLADVANCEBLOCK',onclick:function(){addTA('CDLADVANCEBLOCK')}},{text:'CDLBELTHOLD',onclick:function(){addTA('CDLBELTHOLD')}},{text:'CDLBREAKAWAY',onclick:function(){addTA('CDLBREAKAWAY')}},{text:'CDLCLOSINGMARUBOZU',onclick:function(){addTA('CDLCLOSINGMARUBOZU')}},{text:'CDLCONCEALBABYSWALL',onclick:function(){addTA('CDLCONCEALBABYSWALL')}},{text:'CDLCOUNTERATTACK',onclick:function(){addTA('CDLCOUNTERATTACK')}},{text:'CDLDOJISTAR',onclick:function(){addTA('CDLDOJISTAR')}},{text:'CDLDOJI',onclick:function(){addTA('CDLDOJI')}},{text:'CDLDRAGONFLYDOJI',onclick:function(){addTA('CDLDRAGONFLYDOJI')}},{text:'CDLENGULFING',onclick:function(){addTA('CDLENGULFING')}},{text:'CDLGAPSIDESIDEWHITE',onclick:function(){addTA('CDLGAPSIDESIDEWHITE')}},{text:'CDLGRAVESTONEDOJI',onclick:function(){addTA('CDLGRAVESTONEDOJI')}},{text:'CDLHAMMER',onclick:function(){addTA('CDLHAMMER')}},{text:'CDLHANGINGMAN',onclick:function(){addTA('CDLHANGINGMAN')}},{text:'CDLHARAMICROSS',onclick:function(){addTA('CDLHARAMICROSS')}},{text:'CDLHARAMI',onclick:function(){addTA('CDLHARAMI')}},{text:'CDLHIGHWAVE',onclick:function(){addTA('CDLHIGHWAVE')}},{text:'CDLHIKKAKEMOD',onclick:function(){addTA('CDLHIKKAKEMOD')}},{text:'CDLHIKKAKE',onclick:function(){addTA('CDLHIKKAKE')}},{text:'CDLHOMINGPIGEON',onclick:function(){addTA('CDLHOMINGPIGEON')}},{text:'CDLIDENTICAL3CROWS',onclick:function(){addTA('CDLIDENTICAL3CROWS')}},{text:'CDLINNECK',onclick:function(){addTA('CDLINNECK')}},{text:'CDLINVERTEDHAMMER',onclick:function(){addTA('CDLINVERTEDHAMMER')}},{text:'CDLKICKINGBYLENGTH',onclick:function(){addTA('CDLKICKINGBYLENGTH')}},{text:'CDLKICKING',onclick:function(){addTA('CDLKICKING')}},{text:'CDLLADDERBOTTOM',onclick:function(){addTA('CDLLADDERBOTTOM')}},{text:'CDLLONGLEGGEDDOJI',onclick:function(){addTA('CDLLONGLEGGEDDOJI')}},{text:'CDLLONGLINE',onclick:function(){addTA('CDLLONGLINE')}},{text:'CDLMARUBOZU',onclick:function(){addTA('CDLMARUBOZU')}},{text:'CDLMATCHINGLOW',onclick:function(){addTA('CDLMATCHINGLOW')}},{text:'CDLMORNINGSTAR',onclick:function(){addTA('CDLMORNINGSTAR')}},{text:'CDLONNECK',onclick:function(){addTA('CDLONNECK')}},{text:'CDLPIERCING',onclick:function(){addTA('CDLPIERCING')}},{text:'CDLRICKSHAWMAN',onclick:function(){addTA('CDLRICKSHAWMAN')}},{text:'CDLRISEFALL3METHODS',onclick:function(){addTA('CDLRISEFALL3METHODS')}},{text:'CDLSEPARATINGLINES',onclick:function(){addTA('CDLSEPARATINGLINES')}},{text:'CDLSHOOTINGSTAR',onclick:function(){addTA('CDLSHOOTINGSTAR')}},{text:'CDLSHORTLINE',onclick:function(){addTA('CDLSHORTLINE')}},{text:'CDLSPINNINGTOP',onclick:function(){addTA('CDLSPINNINGTOP')}},{text:'CDLSTALLEDPATTERN',onclick:function(){addTA('CDLSTALLEDPATTERN')}},{text:'CDLSTICKSANDWICH',onclick:function(){addTA('CDLSTICKSANDWICH')}},{text:'CDLTAKURI',onclick:function(){addTA('CDLTAKURI')}},{text:'CDLTASUKIGAP',onclick:function(){addTA('CDLTASUKIGAP')}},{text:'CDLTHRUSTING',onclick:function(){addTA('CDLTHRUSTING')}},{text:'CDLTRISTAR',onclick:function(){addTA('CDLTRISTAR')}},{text:'CDLUNIQUE3RIVER',onclick:function(){addTA('CDLUNIQUE3RIVER')}},{text:'CDLUPSIDEGAP2CROWS',onclick:function(){addTA('CDLUPSIDEGAP2CROWS')}}];
-// this bisplussuboptimal. use target.textContent instead
+function esegui(a,b) {console.log(a.target.textContent);addTA(a.target.textContent);}
+
+
 
 function addTA(wha){
     //console.log(wha);alert(taobj[wha]);
@@ -319,7 +317,8 @@ function restoreTemplate(w){ //TODO: refactor this so it uses funcs to be shared
     //////////
     }
 }
-window.location.reload(); // TODO: use addseries
+remconf();chart1.destroy();createChart();
+//window.location.reload(); // TODO: use addseries
 }
 
 lsobj2templatemenu = function() {
@@ -338,7 +337,29 @@ lsobj2templatemenu = function() {
     return ret;
 }
 
+function axes2menu() {
+assi=chart1.axes.filter(function(x){return (x.coll=="yAxis" && typeof x.axisTitle == "object")  });
+window["vertpanesno"]=arrayUnique(assi.map(function(x){return x.userOptions.index})).length;
+
+//return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+x.axisTitle.textStr+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
+return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+(x.userOptions.index+1)+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
+}
+
+function series2menu() {
+return ( chart1.series.map(function(x){return (x.index==0?"<option selected value='0'>"+x.name+"</option>":"<option value='"+x.index+"'>"+x.name+"</option>")}).join("")) 
+}
+
+
 createChart = function(){
+cdlinit();
+
+indmenu=
+["ADD", "ADXR", "ADX", "AROONOSC", "ATR", "AVGDEV", "BBANDS", "BETA", "CCI", "CMO", "CORREL", "DEMA", "DIV", "DX", "EMA", "KAMA", "LINEARREG_ANGLE", "LINEARREG_INTERCEPT", "LINEARREG_SLOPE", "LINEARREG", "MACD", "MA", "MAX", "MIDPOINT", "MIDPRICE", "MIN", "MINUS_DI", "MINUS_DM", "MOM", "MULT", "NATR", "PLUS_DI", "PLUS_DM", "ROCP", "ROCR100", "ROCR", "ROC", "RSI", "SMA", "STDDEV", "SUB", "SUM", "TEMA", "TRIMA", "TRIX", "TSF", "VAR", "WILLR", "WMA"].map(function(x){return {text:x,onclick:esegui}});
+funmenu= ["ADD", "BETA", "CORREL", "DIV", "SUM", "SUB", "MULT"].map(function(x){return {text:x,onclick:esegui}});
+avgmenu=["DEMA", "DIV", "DX", "EMA", "KAMA", "SMA", "TEMA", "TRIMA", "WMA", "MA"].map(function(x){return {text:x,onclick:esegui}});
+cdlmenu=
+["CDL2CROWS", "CDL3BLACKCROWS", "CDL3INSIDE", "CDL3LINESTRIKE", "CDL3OUTSIDE", "CDL3STARSINSOUTH", "CDL3WHITESOLDIERS", "CDLADVANCEBLOCK", "CDLBELTHOLD", "CDLBREAKAWAY", "CDLCLOSINGMARUBOZU", "CDLCONCEALBABYSWALL", "CDLCOUNTERATTACK", "CDLDOJISTAR", "CDLDOJI", "CDLDRAGONFLYDOJI", "CDLENGULFING", "CDLGAPSIDESIDEWHITE", "CDLGRAVESTONEDOJI", "CDLHAMMER", "CDLHANGINGMAN", "CDLHARAMICROSS", "CDLHARAMI", "CDLHIGHWAVE", "CDLHIKKAKEMOD", "CDLHIKKAKE", "CDLHOMINGPIGEON", "CDLIDENTICAL3CROWS", "CDLINNECK", "CDLINVERTEDHAMMER", "CDLKICKINGBYLENGTH", "CDLKICKING", "CDLLADDERBOTTOM", "CDLLONGLEGGEDDOJI", "CDLLONGLINE", "CDLMARUBOZU", "CDLMATCHINGLOW", "CDLMORNINGSTAR", "CDLONNECK", "CDLPIERCING", "CDLRICKSHAWMAN", "CDLRISEFALL3METHODS", "CDLSEPARATINGLINES", "CDLSHOOTINGSTAR", "CDLSHORTLINE", "CDLSPINNINGTOP", "CDLSTALLEDPATTERN", "CDLSTICKSANDWICH", "CDLTAKURI", "CDLTASUKIGAP", "CDLTHRUSTING", "CDLTRISTAR", "CDLUNIQUE3RIVER", "CDLUPSIDEGAP2CROWS", "CDLXSIDEGAP3METHODS"].map(function(x){return {text:x,onclick:esegui}});
+
 chart1=new Highcharts.StockChart( {
     chart: {
         renderTo:'container'
@@ -389,22 +410,15 @@ chart1=new Highcharts.StockChart( {
     , yAxis : defarr2axes().map(indexDef)
 }
 );
+
+window.amenutxt=axes2menu();window.smenutxt=series2menu();
+cdlinit();
+
 }
 
 createChart();
 
-function axes2menu() {
-assi=chart1.axes.filter(function(x){return (x.coll=="yAxis" && typeof x.axisTitle == "object")  });
-window["vertpanesno"]=arrayUnique(assi.map(function(x){return x.userOptions.index})).length;
 
-//return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+x.axisTitle.textStr+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
-return ( "<option value='own' selected>Own</option>"+  assi.map(function(x){return ("<option value='"+(x.userOptions.index+1)+"'>"+x.axisTitle.textStr+"</option>")}).join("")) 
-}
-window.amenutxt=axes2menu();
-function series2menu() {
-return ( chart1.series.map(function(x){return (x.index==0?"<option selected value='0'>"+x.name+"</option>":"<option value='"+x.index+"'>"+x.name+"</option>")}).join("")) 
-}
-window.smenutxt=series2menu();
 
 index2axisobj=function(i){return (defarr.filter(function(x){return (x.index==i)})[0])     }
 nam2axisobj=function(i){return (defarr.filter(function(x){return (x.nam==i)})[0])     } // deletable?
