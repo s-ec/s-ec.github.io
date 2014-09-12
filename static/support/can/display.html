@@ -31,7 +31,7 @@ function defarr2axes() {
 		} // bonus points for redoing this loop with a .map call
 	return ret;
 	}
-
+ 
 
 function indexDef(obj) {
     var top, height;
@@ -188,7 +188,6 @@ addthis = function(w){
     var outs=0;
     for (var e in fdefarr) {
         if (fdefarr[e].indexOf("$out")==-1) {
-            //rimane da gestire gli in.
             
             if (fdefarr[e].indexOf("$in")==0) {
                 if (fdefarr[e]=="$inReal" || fdefarr[e]=="$inClose") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[4]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
@@ -218,6 +217,9 @@ addthis = function(w){
     console.log(defobj);
     defobj.tamodels.push(modelobj);
 
+    //TEORICAFUNC([xxx].concat(modelargs))
+
+    // --------------------------------
     giornis=parentwin.Transpose(index2axisobj(1).dat)[0];
     //console.log("giornis:",giornis);   
     NEWSERIESDATA=parentwin[funname].apply(this,argarr);
@@ -233,11 +235,14 @@ addthis = function(w){
             NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA[ee]]); 
             defarr.push({dat:NEWDATAARRAY,nam:funname.replace("_f","")+ee,index:destinationaxis});
         }
-    window.location.reload(); // TODO: use addseries
+    
     
         // sticha giornis ad ognuno di essi ed adda ogni risultato come serie nuova sullì index esistente
     }
-    remconf();
+    //remconf();
+    window.location.reload(); // TODO: use addseries
+
+    // --------------------------------
     // NO DEVI CONTROLLARE QUANTI out ci sono , cosi' va bene solo per 1 out.. fai un for each su NEWSERIESDATA
     // sei fortunello solo BBANDS ha piu' di un output...
     // aggiungi NEWDATAARRAY alla chart, o in un nuovo asse o meno ma aggiungilo e poi chiama redraw
@@ -257,7 +262,61 @@ function addTA(wha){
 
 function remconf(){document.getElementById("confdiv").style.display="none";}
 
-function restoreTemplate(w){alert(w);console.log(JSON.parse(localStorage.getItem("TAT_ARR"))[w])}
+function restoreTemplate(w){ //TODO: refactor this so it uses funcs to be shared with addThis()
+    //alert(w);
+    var model_u = JSON.parse(localStorage.getItem("TAT_ARR"))[w];
+    console.log(JSON.parse(localStorage.getItem("TAT_ARR"))[w])
+    var model = model_u.sort(function(a,b){return a.seriesindex > b.seriesindex})
+    // make sure theyre sorted by seriesindex
+    for (var cur in model) {
+        console.log(model[cur])
+    ////////////
+    var fdefarr=pobj[(model[cur].funname.replace("_f","o_TA_"))];
+    console.log(fdefarr); 
+    
+    var seriesInTarget= index2axisobj(+Number(model[cur].targseridx)+Number(1)).dat[0].length;
+
+    console.log("seriesInTarget:",seriesInTarget);
+    var argarr=[];
+    var targseridx=model[cur].targseridx;
+    var outs=0;
+    for (var e in fdefarr) {
+        if (fdefarr[e].indexOf("$out")==-1) {
+            
+            if (fdefarr[e].indexOf("$in")==0) {
+                if (fdefarr[e]=="$inReal" || fdefarr[e]=="$inClose") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[4]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
+                if (fdefarr[e]=="$inOpen") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  }
+                if (fdefarr[e]=="$inHigh") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[2]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
+                if (fdefarr[e]=="$inLow") {  if (seriesInTarget>=4) { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[3]) } else { argarr.push(parentwin.Transpose(index2axisobj(targseridx+1).dat)[1]) }  } 
+            }
+         
+        }
+        else { if (  (fdefarr[e].indexOf("$outBegIdx")==-1)    &&    (fdefarr[e].indexOf("$outNBElement")==-1)      )  {outs++;  }   }
+    }
+    argarr=argarr.concat(model[cur].args);
+
+    ///////////////////aggiungi here
+
+    giornis=parentwin.Transpose(index2axisobj(1).dat)[0];
+    //console.log("giornis:",giornis);   
+    NEWSERIESDATA=parentwin[model[cur].funname].apply(this,argarr);
+    if (outs == 1) {
+        NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA]);
+        defarr.push({dat:NEWDATAARRAY,nam:model[cur].funname.replace("_f",""),index:model[cur].destinationaxis});
+        console.log(NEWDATAARRAY);
+    }
+    else {
+        console.log("more than one out");
+        console.log(NEWSERIESDATA);
+        for (var ee in NEWSERIESDATA) {
+            NEWDATAARRAY = parentwin.Transpose([giornis, NEWSERIESDATA[ee]]); 
+            defarr.push({dat:NEWDATAARRAY,nam:model[cur].funname.replace("_f","")+ee,index:model[cur].destinationaxis});
+        }
+    //////////
+    }
+}
+window.location.reload(); // TODO: use addseries
+}
 
 lsobj2templatemenu = function() {
     try {
@@ -300,7 +359,8 @@ chart1=new Highcharts.StockChart( {
                 {text:"import template",onclick:function(){alert(prompt("template URL?"))}},
                 {text:"export template",onclick:function(){alert(prompt("template URL?"))}},
                 {text:"test",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")}},
-                {text:"enable navigator",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")},separator:true }
+                {separator:true },
+                {text:"enable navigator",onclick:function(a,b){console.log(a);console.log(b);alert("not yet available")}}
                 ].concat(lsobj2templatemenu())
                 , symbol:'menu', text:'templates'
             },
