@@ -1045,6 +1045,7 @@ openwin = function(url,wintitle,confobj){
         var winname = "msg_win"+rnd;
         top[winname] = Ext.create('widget.window', {
         x: (confobj.x == undefined) ? 12 : confobj.x,
+        y: (confobj.y == undefined) ? 20 : confobj.y,
         title: wintitle,
         maximizable: true,
         resizable:true,
@@ -1061,10 +1062,8 @@ openwin = function(url,wintitle,confobj){
                 // hidden:true,
                 handler: function(event, toolEl, panel){
                     var oldref=Ext.getCmp("FRAME"+rnd).el.dom.contentWindow;
-                    console.log( extwindows.filter(function(y){return y.wref==oldref})   );
                     extwindows.filter(function(y){return y.wref==oldref})[0].wref = window.open(url,"FRAME"+rnd);
                     top[winname].close();
-                    console.log("did it work?");
                 }
             },
             {
