@@ -1038,28 +1038,33 @@ top[winname].show();
 return (document.getElementById("DIV"+rnd+"-body"));
 }
 
-openwin = function(url,wintitle){
+openwin = function(url,wintitle,confobj){
+        confobj = (confobj == undefined) ? {} : confobj;
         wintitle = (wintitle == undefined) ? "Message Window" : wintitle;
         var rnd=Math.random();
         var winname = "msg_win"+rnd;
         top[winname] = Ext.create('widget.window', {
-        x: 12,
+        x: (confobj.x == undefined) ? 12 : confobj.x,
         title: wintitle,
         maximizable: true,
         resizable:true,
         collapsible: true, closable: true,
         closeAction: 'destroy',
         //animateTarget: this,
-        width: 600,
-        height: 350,
+        width: (confobj.width == undefined) ? 600 : confobj.width,
+        height: (confobj.height == undefined) ? 350 : confobj.height,
         layout: 'fit',
-        bodyStyle: 'padding: 5px;',
+        bodyStyle: (confobj.bodyStyle == undefined) ? 'padding: 5px;' : confobj.bodyStyle,
         tools:[{ // TODO: this needs to be optionalized maybe?
                 type:'plus',
                 tooltip: 'Unpin window (creates an external window)',
                 // hidden:true,
                 handler: function(event, toolEl, panel){
-                    alert("soon");
+                    var oldref=Ext.getCmp("FRAME"+rnd).el.dom.contentWindow;
+                    console.log( extwindows.filter(function(y){return y.wref==oldref})   );
+                    extwindows.filter(function(y){return y.wref==oldref})[0].wref = window.open(url,"FRAME"+rnd);
+                    top[winname].close();
+                    console.log("did it work?");
                 }
             },
             {

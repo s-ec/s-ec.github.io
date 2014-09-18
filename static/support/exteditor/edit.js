@@ -51,6 +51,7 @@ savescriptsnew = function()            {     /*
                 };
                 if (refwin.extwindows) saveobj["extwindows"]=refwin.extwindows.map(function(e){e.wref=null;return e});
                 console.log((JSON.stringify(saveobj)));
+                if (typeof _CONFIG == undefined) _CONFIG=refwin._CONFIG;
                 refwin.httppost(_CONFIG.Wserver, _CONFIG.Wport, "/", "HSET/rs-" + _room + "/scripts/" + encodeURIComponent(window.btoa(JSON.stringify(saveobj))));
                 //Ext.example.msg('Warning', 'Function is not yet implemented');
 }    

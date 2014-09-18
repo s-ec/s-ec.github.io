@@ -49,6 +49,7 @@ for (var i in pobj) {
     
 }
 
+/*
 // useless code for ref
 cdlmenu=[];
 indmenu=[];
@@ -68,6 +69,7 @@ else {indmenustr+="{text:'"+xname+"',onclick:function(){addTA('"+xname+"')}},"}
 		indmenustr[indmenustr.length-1]="]";
 		cdlmenustr[indmenustr.length-1]="]";
 // end useless code
+*/
 		
         //document.getElementById("optsdiv").innerHTML+=bs;
         //left for reference
